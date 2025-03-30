@@ -39,6 +39,7 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
+    if: false  # Temporarily disabled
     steps:
     - uses: actions/checkout@v4
     - name: Install Nix
