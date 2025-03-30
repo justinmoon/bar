@@ -20,6 +20,13 @@ lint:
     cargo clippy
     cd ..
 
+# Format nix and rust code
+format:
+    # cd rust
+    # cargo fmt --all
+    # cd ..
+    nixfmt $(git ls-files | grep "\.nix$")
+
 # Lint all source file lint errors
 lint-fix:
     cd rust
