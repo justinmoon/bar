@@ -39,6 +39,7 @@ impl rust_multiplatform::traits::RmpAppModel for Model {
     fn create(data_dir: String) -> Self {
         // Create a channel, give sender to ViewModel and receiver to Model
         let (sender, receiver) = unbounded();
+        dbg!("foo");
         ViewModel::init(sender);
         Model {
             count: 0,
