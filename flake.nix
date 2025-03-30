@@ -144,6 +144,25 @@
             pkgs.just
             pkgs.watchexec
           ];
+          
+          # Override the lint shell to avoid semgrep
+          shellOverrides = {
+            lint = {
+              packages = oldPackages: 
+                let 
+                  # Filter out semgrep and its dependencies
+                  filteredPackages = builtins.filter (pkg: 
+                    pkg.pname or "" != "semgrep" && 
+                    pkg.pname or "" != "python3.12-semgrep"
+                  ) oldPackages;
+                in
+                  filteredPackages ++ [
+                    # Add common lint tools that don't depend on semgrep
+                    pkgs.nixfmt
+                    pkgs.shellcheck
+                  ];
+            };
+          };
 
           # Preserve your shellHook
           shellHook = ''
