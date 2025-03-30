@@ -51,7 +51,9 @@ jobs:
         key: ${{ runner.os }}-${{ hashFiles('Cargo.lock') }}
         path: ~/.cargo
     - name: Commit Check
-      run: 'nix develop --ignore-environment .#lint --command ./scripts/pre-commit.sh'
+        # FIXME: lint shell was still running semgrep which I don't want yet
+        # run: 'nix develop --ignore-environment .#lint --command ./scripts/pre-commit.sh'
+      run: 'nix develop --ignore-environment .# --command ./scripts/pre-commit.sh'
 
 name: CI
 'on':
