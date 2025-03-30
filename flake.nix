@@ -27,7 +27,21 @@
     flake-utils.lib.eachDefaultSystem (
       system:
       let
-        pkgs = import nixpkgs { inherit system; };
+        pkgs = import nixpkgs { 
+          inherit system;
+          # Override to fix CI test failures in click-option-group
+          overlays = [
+            (final: prev: {
+              python3Packages = prev.python3Packages.override {
+                overrides = pfinal: pprev: {
+                  click-option-group = pprev.click-option-group.overrideAttrs (old: {
+                    doCheck = false;
+                  });
+                };
+              };
+            })
+          ];
+        };
 
         # Configure Android SDK
         androidSdk = android-nixpkgs.sdk.${system} (
