@@ -2,6 +2,8 @@
 
 set -euo pipefail
 
+set -x
+
 set +e
 git diff-files --quiet
 is_unclean=$?
@@ -170,14 +172,20 @@ function check_trailing_whitespace() {
 }
 export -f check_trailing_whitespace
 
-parallel \
-  --nonotice \
-::: \
-    check_cargo_fmt \
-    check_cargo_lock \
-    check_leftover_dbg \
-    check_nixfmt \
-    check_nothing
+check_cargo_fmt
+check_cargo_lock
+check_leftover_dbg
+check_nixfmt
+check_nothing
+
+# parallel \
+#   --nonotice \
+# ::: \
+#     check_cargo_fmt \
+#     check_cargo_lock \
+#     check_leftover_dbg \
+#     check_nixfmt \
+#     check_nothing
 
     # check_semgrep \
     # check_shellcheck \
