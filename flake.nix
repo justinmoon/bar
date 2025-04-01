@@ -6,7 +6,7 @@
     flake-utils.url = "github:numtide/flake-utils";
 
     flakebox = {
-      url = "github:rustshop/flakebox";
+      url = "github:rustshop/flakebox/5e9ce550fb989f1311547ee09301315cc311ba3b";
       inputs.nixpkgs.follows = "nixpkgs";
     };
 
